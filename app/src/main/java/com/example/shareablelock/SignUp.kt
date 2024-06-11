@@ -27,15 +27,8 @@ class SignUp : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val baseURL = getString(R.string.hostname)
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseURL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-        apiService = retrofit.create(ApiService::class.java)
-
-
+        apiService = RetrofitHelper.getApiService(this)
         val emailEditText = findViewById<EditText>(R.id.editEmail)
         val passwordEditText = findViewById<EditText>(R.id.editPwd)
         val confirmPasswordEditText = findViewById<EditText>(R.id.editConformPwd)
