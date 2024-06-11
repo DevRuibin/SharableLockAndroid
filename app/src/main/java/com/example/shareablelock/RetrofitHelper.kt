@@ -13,4 +13,13 @@ object RetrofitHelper {
             .build()
         return retrofit.create(ApiService::class.java)
     }
+
+    fun getFileAPIService(context: Context): ApiService {
+        val baseURL = context.getString(R.string.file_server_ip)
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseURL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit.create(ApiService::class.java)
+    }
 }

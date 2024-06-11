@@ -12,4 +12,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="hostname">http://10.0.2.2:8222</string>
+    <string name="ip">http://10.0.2.2</string>
+    <string name="file_server_ip">http://10.0.2.2:8500</string>
 </resources>

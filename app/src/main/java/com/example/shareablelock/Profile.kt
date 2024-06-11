@@ -2,24 +2,34 @@ package com.example.shareablelock
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 
 class Profile : AppCompatActivity() {
@@ -36,6 +46,13 @@ class Profile : AppCompatActivity() {
     lateinit var txtSetEmail: TextView
     lateinit var txtSetPwd: TextView
     lateinit var btnLogout: TextView
+    private val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
+        if (uri != null) {
+            handleImageUri(uri)
+        } else {
+            // Handle the case where the user didn't pick an image
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +75,12 @@ class Profile : AppCompatActivity() {
             logout()
         }
 
+        getUser()
+//        updateUI()
+
         txtModifyProfile.setOnClickListener{
-            Toast.makeText(this, "Modify Profile Picture", Toast.LENGTH_SHORT).show()
+            openPhotoPicker()
+
         }
 
         txtSetName.setOnClickListener { showEditTextDialog("Name", txtSetName.text.toString()) { newValue ->
@@ -83,7 +104,7 @@ class Profile : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         getUser()
-        updateUI()
+//        updateUI()
     }
 
     private fun getUser(){
@@ -95,6 +116,7 @@ class Profile : AppCompatActivity() {
                         userModel?.let{
                             PreferenceHelper.saveUser(this@Profile, it)
                             user = it
+                            updateUI()
                         }?: run{
                             Toast.makeText(this@Profile, "no user login information", Toast.LENGTH_SHORT).show()
                             logout()
@@ -118,9 +140,9 @@ class Profile : AppCompatActivity() {
         txtEmail.text = user.email
         txtPwd.text = "********"
         println("The avatar is ${user.avatar}")
-        val urlReplace = "http://10.0.2.2:8500/files/1716997621741_ea62fcf4-89c8-4755-88ee-0f93e43c770cexample.jpg"
+//        val urlReplace = "http://10.0.2.2:8500/files/1716997621741_ea62fcf4-89c8-4755-88ee-0f93e43c770cexample.jpg"
         Glide.with(this)
-            .load(urlReplace)
+            .load(user.avatar)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.ic_launcher_background) // Placeholder image
@@ -229,7 +251,7 @@ class Profile : AppCompatActivity() {
                         Toast.makeText(this@Profile, "Password updated", Toast.LENGTH_SHORT).show()
                         // todo: close the dialog
                         getUser()
-                        updateUI()
+//                        updateUI()
                     }else{
                         println(response.errorBody()?.string())
                         Toast.makeText(this@Profile, "check the code", Toast.LENGTH_SHORT).show()
@@ -252,4 +274,89 @@ class Profile : AppCompatActivity() {
         builder.create().show()
     }
 
+    private fun openPhotoPicker() {
+        pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+    }
+
+    private fun handleImageUri(uri: Uri) {
+        val filePath = getRealPathFromURI(this, uri)
+        val file = File(filePath!!)
+        uploadFile(file, object : FileUploadCallback {
+            override fun onSuccess(fileName: String) {
+                val url = StringBuilder(getString(R.string.file_server_ip)).append("/").append(fileName).toString()
+                val userNew = user.copy(avatar = url)
+
+                apiService.updateUser(userNew.id!!, userNew).enqueue(object : Callback<UserModel>{
+                    override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                        if(response.isSuccessful){
+                            imgProfile.setImageURI(uri)
+                            Toast.makeText(this@Profile, "Photo updated", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@Profile, "An error occurred", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                        Toast.makeText(this@Profile, "An error occurred", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+            override fun onFailure(errorMessage: String) {
+                Toast.makeText(this@Profile, "File upload failed: $errorMessage", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+    }
+
+
+    private fun uploadFile(file: File, callback: FileUploadCallback) {
+        val requestFile = RequestBody.create(MediaType.get("image/jpeg"), file)
+        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        val apiService = RetrofitHelper.getFileAPIService(this)
+        val call = apiService.uploadFile(body)
+
+        call.enqueue(object : Callback<ProfilePhotoName> {
+            override fun onResponse(call: Call<ProfilePhotoName>, response: Response<ProfilePhotoName>) {
+                if (response.isSuccessful) {
+                    val fileName = response.body()?.fileName
+                    if (fileName != null) {
+                        Toast.makeText(this@Profile, "File uploaded successfully", Toast.LENGTH_SHORT).show()
+                        callback.onSuccess(fileName)
+                    } else {
+                        callback.onFailure("No file name returned")
+                    }
+                } else {
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    callback.onFailure(errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<ProfilePhotoName>, t: Throwable) {
+                val errorMessage = t.message ?: "Unknown error"
+                callback.onFailure(errorMessage)
+            }
+        })
+    }
+
+
+
+
+
 }
+
+
+fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
+    var cursor: Cursor? = null
+    return try {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+        val column_index = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor?.moveToFirst()
+        cursor?.getString(column_index!!)
+    } finally {
+        cursor?.close()
+    }
+}
+
+
