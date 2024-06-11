@@ -51,4 +51,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.material.v180)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
 }
