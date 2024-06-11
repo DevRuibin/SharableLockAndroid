@@ -23,6 +23,15 @@
         android:layout_below="@id/btnSignup"
         android:layout_centerHorizontal="true"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:id="@+id/btnProfile"
+        android:layout_below="@id/btnLogin"
+        android:layout_centerHorizontal="true"/>
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

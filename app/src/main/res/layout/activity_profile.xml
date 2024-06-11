@@ -25,7 +25,8 @@
         android:layout_below="@+id/txtProfile"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/ic_launcher"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:scaleType="centerCrop"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,11 +57,11 @@
 
 
         <TextView
+            android:id="@+id/txtName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Ruibin Zhang"
-            />
+            android:text="Ruibin Zhang" />
 
 
         <TextView
@@ -89,11 +90,11 @@
 
 
         <TextView
+            android:id="@+id/txtUserName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="\@ruibin"
-            />
+            android:text="\@ruibin" />
 
 
         <TextView
@@ -122,12 +123,12 @@
 
 
         <TextView
+            android:id="@+id/txtEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="ruibin.zhang@student.uclouvain.be"
             android:maxLength="35"
-            />
+            android:text="ruibin.zhang@student.uclouvain.be" />
 
 
         <TextView
@@ -156,13 +157,13 @@
 
 
         <TextView
+            android:id="@+id/txtPwd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Ruibin Zhang"
             android:inputType="textPassword"
             android:maxLength="33"
-            />
+            android:text="Ruibin Zhang" />
 
 
         <TextView
@@ -172,6 +173,15 @@
             android:id="@+id/txtSetPwd"
             app:drawableEndCompat="@drawable/ic_right_arrow" />
     </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:id="@+id/btnLogout"
+        android:layout_below="@+id/pwdLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/red"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
