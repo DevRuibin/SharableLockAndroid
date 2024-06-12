@@ -7,6 +7,7 @@ import com.google.gson.Gson
 object PreferenceHelper {
     private const val PREF_NAME = "shareablelock"
     private const val USER_KEY = "user"
+    private const val NFC_KEY = "nfc"
 
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -29,6 +30,26 @@ object PreferenceHelper {
     fun clearUser(context: Context){
         val editor = getPrefs(context).edit()
         editor.remove(USER_KEY)
+        editor.apply()
+    }
+
+    fun saveNfc(context: Context, nfc: NfcModel){
+        val gson = Gson()
+        val nfcJson = gson.toJson(nfc)
+        val editor = getPrefs(context).edit()
+        editor.putString(NFC_KEY, nfcJson)
+        editor.apply()
+    }
+
+    fun getNfc(context: Context): NfcModel?{
+        val gson = Gson()
+        val nfcJson = getPrefs(context).getString(NFC_KEY, null)
+        return gson.fromJson(nfcJson, NfcModel::class.java)
+    }
+
+    fun clearNfc(context: Context){
+        val editor = getPrefs(context).edit()
+        editor.remove(NFC_KEY)
         editor.apply()
     }
 }

@@ -7,6 +7,113 @@
     android:layout_height="match_parent"
     tools:context=".KeyActivity">
 
+    <TextView
+        android:id="@+id/nfc_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NFC Status"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/nfc_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NFC Data will be displayed here"
+        android:textSize="16sp"
+        android:layout_below="@id/nfc_status"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nfc_data"
+        android:id="@+id/noNfc"
+        android:visibility="gone"
+        android:text="You don't have a nfc tag, apply one now"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/applyNfc"
+        android:layout_below="@id/nfc_data"
+        android:layout_marginTop="20dp"
+        android:text="Apply NFC"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nfc_data"
+        android:id="@+id/hasCard"
+        android:visibility="visible">
+    <RelativeLayout
+        android:id="@+id/card_user_info"
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:padding="16dp"
+        android:background="@drawable/card_background"
+        android:elevation="4dp">
+
+        <!-- User Name -->
+        <TextView
+            android:id="@+id/text_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John Doe"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+        <!-- User Email -->
+        <TextView
+            android:id="@+id/text_user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="john.doe@example.com"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:layout_below="@id/text_user_name"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Company Name -->
+        <TextView
+            android:id="@+id/text_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shareable Smart Lock"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="16dp"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_user_info"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnScan"
+        android:text="Scan"
+        android:layout_marginTop="20dp"
+        />
+    </RelativeLayout>
+
+
+
+
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -21,7 +128,6 @@
         android:visibility="visible"
         android:padding="0dp"
         android:layout_margin="0dp"
-        style="@style/Style.BottomNavigationView"
-        />
+        style="@style/Style.BottomNavigationView" />
 
 </RelativeLayout>
