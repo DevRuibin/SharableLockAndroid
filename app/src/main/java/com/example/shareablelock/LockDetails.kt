@@ -34,6 +34,16 @@ class LockDetails : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+                R.id.nav_notifications -> {
+                    val intent = Intent(this, MessageActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                R.id.nav_key -> {
+                    val intent = Intent(this, KeyActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
             true
         }

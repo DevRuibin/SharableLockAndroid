@@ -75,13 +75,22 @@ class Profile : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-                R.id.nav_profile -> {
+                R.id.imgProfile -> {
+                    finish()
+                }
+                R.id.nav_notifications -> {
+                    val intent = Intent(this, MessageActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                R.id.nav_key -> {
+                    val intent = Intent(this, KeyActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
             }
             true
         }
-
         val user = PreferenceHelper.getUser(this)
         if(user == null){
             logout()
