@@ -37,5 +37,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val btnLocks = findViewById<Button>(R.id.btnLocks)
+        btnLocks.setOnClickListener {
+            val intent = Intent(this, Locks::class.java)
+            startActivity(intent)
+        }
+
     }
 }

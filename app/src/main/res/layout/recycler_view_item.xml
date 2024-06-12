@@ -1,7 +1,93 @@
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:tools="http://schemas.android.com/tools"
-   android:id="@+id/imageView1"
-   android:layout_width="50dp"
-   android:layout_height="50dp"
-   android:layout_margin="5dp"
-   tools:src="@tools:sample/avatars" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:background="@color/lightBlue"
+    android:padding="16dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/lock_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@color/design_default_color_on_primary" />
+
+        <TextView
+            android:id="@+id/lock_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lock1"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/black"
+            android:padding="4dp"
+            android:layout_gravity="top|start"
+            android:layout_margin="8dp" />
+    </FrameLayout>
+
+    <!-- Status Row -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/lock_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: " />
+
+        <TextView
+            android:id="@+id/lock_status_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="locked" />
+    </LinearLayout>
+
+    <!-- Battery Row -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/lock_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Battery: " />
+
+        <TextView
+            android:id="@+id/lock_battery_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="95%" />
+    </LinearLayout>
+
+    <!-- Owner Row -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/lock_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Owner: " />
+
+        <TextView
+            android:id="@+id/lock_owner_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ruibin" />
+    </LinearLayout>
+</LinearLayout>
