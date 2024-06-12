@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShareableLock"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".KeyActivity"
+            android:exported="false" />
         <activity
             android:name=".LockDetails"
             android:exported="false" />
@@ -24,9 +28,11 @@
         <activity
             android:name=".SignUp"
             android:exported="false" />
-        <activity android:name=".Login"
+        <activity
+            android:name=".Login"
             android:exported="false" />
-        <activity android:name=".Profile"
+        <activity
+            android:name=".Profile"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -36,17 +42,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Trigger Google Play services to install the backported photo picker module. -->
-        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
+        </activity> <!-- Trigger Google Play services to install the backported photo picker module. -->
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
             android:enabled="false"
             android:exported="false"
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
             </intent-filter>
-            <meta-data android:name="photopicker_activity:0:required" android:value="" />
+
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
         </service>
     </application>
 

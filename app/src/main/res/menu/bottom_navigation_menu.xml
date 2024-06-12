@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_locks"
         android:icon="@drawable/outline_home_24"
-        android:title="Key"
+        android:title="Home"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/nav_all_locks"
+        android:id="@+id/nav_key"
         android:icon="@drawable/outline_key_24"
         android:title="Key"
         app:showAsAction="always"/>

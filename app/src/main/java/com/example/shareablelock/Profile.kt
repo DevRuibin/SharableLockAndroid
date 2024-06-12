@@ -23,6 +23,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,6 +47,7 @@ class Profile : AppCompatActivity() {
     lateinit var txtSetEmail: TextView
     lateinit var txtSetPwd: TextView
     lateinit var btnLogout: TextView
+    private lateinit var bottomNavigationView: BottomNavigationView
     private val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
         if (uri != null) {
             handleImageUri(uri)
@@ -62,6 +64,22 @@ class Profile : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.selectedItemId = R.id.nav_locks
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_locks -> {
+                    val intent = Intent(this, Locks::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                R.id.nav_profile -> {
+                    finish()
+                }
+            }
+            true
         }
 
         val user = PreferenceHelper.getUser(this)

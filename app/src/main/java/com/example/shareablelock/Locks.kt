@@ -1,5 +1,6 @@
 package com.example.shareablelock
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -8,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +23,7 @@ class Locks : AppCompatActivity() {
     lateinit var adapter: LockAdapter
     lateinit var recyclerView: RecyclerView
     private lateinit var apiService: ApiService
+    lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +32,21 @@ class Locks : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.selectedItemId = R.id.nav_locks
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_locks -> {
+                    // do nothing
+                }
+                R.id.nav_profile -> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+            true
         }
         apiService = RetrofitHelper.getApiService(this)
         recyclerView = findViewById(R.id.recycleView)
