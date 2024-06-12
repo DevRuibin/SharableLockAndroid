@@ -52,4 +52,7 @@ interface ApiService {
     @PATCH("/api/v1/locks/{lock-id}")
     fun updateLock(@Path("lock-id") lockId: Long, @Body lock: LockModel): Call<LockModel>
 
+    /*Get all Messages by user id*/
+    @GET("/api/v1/messages/users/{user-id}")
+    fun getMessagesByUser(@Path("user-id") userId: Long): Call<List<MessageModel>>
 }

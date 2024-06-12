@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessageActivity">
-
+    tools:context=".MessageDetailActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -16,26 +15,7 @@
         android:clipToPadding="false"
         tools:itemCount="19"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_message"
+        tools:listitem="@layout/item_only_message_time"
         android:background="?android:attr/selectableItemBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="#673AB7"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/bottom_navigation_menu"
-        app:labelVisibilityMode="auto"
-        android:visibility="visible"
-        android:padding="0dp"
-        android:layout_margin="0dp"
-        style="@style/Style.BottomNavigationView"
-        />
-
 </RelativeLayout>
