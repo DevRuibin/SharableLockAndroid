@@ -59,5 +59,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     implementation (libs.androidx.core)
+    implementation("com.google.android.gms:play-services-maps:18.0.2")
+
 
 }

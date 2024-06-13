@@ -54,9 +54,16 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="6"
             android:id="@+id/txtName"
             android:text="Lock 1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/txtChangeName"
+            app:drawableEndCompat="@drawable/ic_right_arrow" />
     </LinearLayout>
 
     <LinearLayout
@@ -219,26 +226,36 @@
             android:text="Share TO"
             android:textStyle="bold"
             />
+
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:text="Hasan"/>
-        <TextView
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:id="@+id/txtNoShareUsers"
+            android:text="No othe users"
+            android:visibility="visible"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/deleteButton"
-            app:drawableEndCompat="@android:drawable/ic_delete" />
+            android:layout_height="150dp"
+            android:layout_weight="7"
+            tools:itemCount="7"
+            tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/item_share_user"
+            tools:spanCount="1"
+            android:visibility="gone"/>
 
     </LinearLayout>
     <Button
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/shareToLayout"
         android:id="@+id/btnShare"
         android:layout_centerVertical="true"
-        android:text="Share"
+        android:text="Add a User"
         android:layout_centerHorizontal="true"/>
 
     <Button
@@ -247,7 +264,7 @@
         android:layout_below="@id/btnShare"
         android:text="Show Location"
         android:layout_marginHorizontal="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/btnLocation"
         />
     <Button
@@ -255,26 +272,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLocation"
         android:layout_marginHorizontal="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/btnDelete"
         android:backgroundTint="@android:color/holo_red_dark"
         android:elevation="10dp"
         android:text="Delete"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="#673AB7"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/bottom_navigation_menu"
-        app:labelVisibilityMode="auto"
-        android:visibility="visible"
-        android:padding="0dp"
-        android:layout_margin="0dp"
-        style="@style/Style.BottomNavigationView"
-        />
 </RelativeLayout>

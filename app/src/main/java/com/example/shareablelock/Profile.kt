@@ -110,17 +110,17 @@ class Profile : AppCompatActivity() {
 
         }
 
-        txtSetName.setOnClickListener { showEditTextDialog("Name", txtSetName.text.toString()) { newValue ->
+        txtSetName.setOnClickListener { showEditTextDialog("Name", txtName.text.toString()) { newValue ->
             txtName.text = newValue
             txtUserName.text = newValue
         } }
 
-        txtSetUserName.setOnClickListener { showEditTextDialog("Username", txtSetUserName.text.toString()) { newValue ->
+        txtSetUserName.setOnClickListener { showEditTextDialog("Username", txtUserName.text.toString()) { newValue ->
             txtName.text = newValue
             txtUserName.text = newValue
         } }
 
-        txtSetEmail.setOnClickListener { showEditTextDialog("Email", txtSetEmail.text.toString()) { newValue ->
+        txtSetEmail.setOnClickListener { showEditTextDialog("Email", txtEmail.text.toString()) { newValue ->
             txtEmail.text = newValue
         } }
 
