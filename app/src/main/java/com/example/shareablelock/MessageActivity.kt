@@ -62,20 +62,22 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun getAllMessages() {
-        Log.d(TAG, "getAllMessages: called")
+        Log.d(TAG, "getAllMessages: called, getting messages by user id")
         val userId = PreferenceHelper.getUser(this)?.id
+        Log.d(TAG, "getAllMessages: userId: $userId")
         userId?.let {
             apiService.getMessagesByUser(it).enqueue(object : Callback<List<MessageModel>> {
                 override fun onResponse(call: Call<List<MessageModel>>, response: Response<List<MessageModel>>) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "onResponse: ${response.body()}")
+                        Log.d(TAG, "onResponse: ${response.body()?.size}")
                         messageList = response.body()!!
                         adapter = MessageAdapter(this@MessageActivity, 1)
                         adapter.messages = messageList
                         recyclerView.adapter = adapter
                         recyclerView.layoutManager = LinearLayoutManager(this@MessageActivity)
                     }else{
-                        Log.d(TAG, "onResponse: ${response.errorBody()}")
+                        Log.d(TAG, "onFailResponse: ${response.errorBody()}")
                     }
                 }
 
