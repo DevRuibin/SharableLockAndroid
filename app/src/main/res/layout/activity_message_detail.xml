@@ -6,9 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MessageDetailActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/rlUser"
+        android:background="#54EDEBF1"
+        >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_launcher_background"
+        android:id="@+id/imgUser"
+        android:contentDescription="Image of user" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@+id/imgUser"
+        android:text="User Name"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:textSize="24sp"
+        android:paddingTop="8dp"
+        android:id="@+id/txtUserName"/>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:layout_below="@+id/rlUser"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:padding="8dp"

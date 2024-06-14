@@ -15,8 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MessageActivity : AppCompatActivity() {
-    private val TAG = "MessageActivity"
-    lateinit var messageList: List<MessageModel>
+    private val TAG = "messageUserResponses"
+    lateinit var messageUserResponse: List<MessageUserResponse>
     lateinit var adapter: MessageAdapter
     lateinit var recyclerView: RecyclerView
     private lateinit var apiService: ApiService
@@ -66,14 +66,14 @@ class MessageActivity : AppCompatActivity() {
         val userId = PreferenceHelper.getUser(this)?.id
         Log.d(TAG, "getAllMessages: userId: $userId")
         userId?.let {
-            apiService.getMessagesByUser(it).enqueue(object : Callback<List<MessageModel>> {
-                override fun onResponse(call: Call<List<MessageModel>>, response: Response<List<MessageModel>>) {
+            apiService.getMessagesByUser(it).enqueue(object : Callback<List<MessageUserResponse>> {
+                override fun onResponse(call: Call<List<MessageUserResponse>>, response: Response<List<MessageUserResponse>>) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "onResponse: ${response.body()}")
                         Log.d(TAG, "onResponse: ${response.body()?.size}")
-                        messageList = response.body()!!
-                        adapter = MessageAdapter(this@MessageActivity, 1)
-                        adapter.messages = messageList
+                        messageUserResponse = response.body()!!
+                        adapter = MessageAdapter(this@MessageActivity)
+                        adapter.messages = messageUserResponse
                         recyclerView.adapter = adapter
                         recyclerView.layoutManager = LinearLayoutManager(this@MessageActivity)
                     }else{
@@ -81,7 +81,7 @@ class MessageActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<MessageModel>>, t: Throwable) {
+                override fun onFailure(call: Call<List<MessageUserResponse>>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
             })}?:run{

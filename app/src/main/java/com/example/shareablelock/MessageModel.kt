@@ -1,9 +1,17 @@
 package com.example.shareablelock
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 
+@Parcelize
+data class MessageUserResponse(
+    var user: UserModel,
+    var unreadMessageNum: Int,
+    var messages: List<MessageModel>
+): Parcelable
 
+@Parcelize
 data class MessageModel(val id: Long,
                         val type: MessageType,
                         val senderId: Long,
@@ -11,7 +19,7 @@ data class MessageModel(val id: Long,
                         val text: String,
                         val detail: String,
                         val timestamp: Long,
-                        val read: Boolean)
+                        var read: Boolean): Parcelable
 
 enum class MessageType {
     GENERAL,

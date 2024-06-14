@@ -1,6 +1,10 @@
 package com.example.shareablelock
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class UserModel (
     val id: Long? = null,
     var username: String? = null,
@@ -9,5 +13,5 @@ data class UserModel (
     var avatar: String? = null,
     var gender: Gender? = null,
     var admin:Boolean = false
-)
+) : Parcelable
 

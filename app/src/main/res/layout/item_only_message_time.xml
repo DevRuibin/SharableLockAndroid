@@ -6,16 +6,33 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/txtMessage"
+        android:id="@+id/txtInMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:padding="8dp"
         android:text="It is a sample text message"
         android:background="@drawable/message_incoming_background" />
-
     <TextView
-        android:id="@+id/txtTime"
+        android:id="@+id/txtInTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:padding="8dp"
+        android:layout_marginStart="10sp"
+        android:text="2024-12-12 12:12:12"
+        android:layout_gravity="start" />
+    <TextView
+        android:id="@+id/txtOutMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:text="It is a sample text message"
+        android:layout_gravity="end"
+        android:background="@drawable/message_outgoing_background" />
+    <TextView
+        android:id="@+id/txtOutTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"

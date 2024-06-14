@@ -20,7 +20,7 @@ import java.util.Date
 import java.util.Locale
 
 
-class MessageAdapter(val context: Context, val unreadNum: Int): RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
+class MessageAdapter(val context: Context): RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
     private val TAG = "MessageAdapter"
 
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,6 +31,7 @@ class MessageAdapter(val context: Context, val unreadNum: Int): RecyclerView.Ada
         var cardNewMessage: MaterialCardView = itemView.findViewById(R.id.cardNewMessage)
         var txtNewMessageNum: TextView = itemView.findViewById(R.id.txtNewMessageNum)
         var id: Long = -1
+        var messageUserResponse: MessageUserResponse? = null
 
         init {
             itemView.setOnClickListener {
@@ -38,14 +39,16 @@ class MessageAdapter(val context: Context, val unreadNum: Int): RecyclerView.Ada
                 Log.d(TAG, "MessageViewHolder: $id")
                 val intent = Intent(context, MessageDetailActivity::class.java)
                 intent.putExtra("userId", id)
+                Log.d(TAG, "MessageViewHolder: $messageUserResponse")
+                intent.putExtra("messageUserResponse", messageUserResponse)
                 context.startActivity(intent)
             }
 
         }
     }
 
-        private var _messages: List<MessageModel> = ArrayList()
-        var messages: List<MessageModel>
+        private var _messages: List<MessageUserResponse> = ArrayList()
+        var messages: List<MessageUserResponse>
             get() = _messages
             set(value) {
                 _messages = value
@@ -64,9 +67,11 @@ class MessageAdapter(val context: Context, val unreadNum: Int): RecyclerView.Ada
 
         override fun onBindViewHolder(holder: MessageAdapter.MessageViewHolder, position: Int) {
             Log.d(TAG, "OnBindViewHolder: Called")
-            val senderId = messages[position].senderId
-            val message = messages[position].text
-            val date = Date(messages[position].timestamp)
+            holder.messageUserResponse = messages[position]
+            val senderId = messages[position].messages[0].senderId
+            val message = messages[position].messages[0].text
+            val date = Date(messages[position].messages[0].timestamp)
+            val unreadNum = messages[position].unreadMessageNum
             val format = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.FRANCE)
             val formattedDate = format.format(date)
             holder.txtMessage.text = message

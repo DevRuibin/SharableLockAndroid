@@ -65,5 +65,5 @@ interface ApiService {
 
     /*Get all Messages by user id*/
     @GET("/api/v1/messages/users/{user-id}")
-    fun getMessagesByUser(@Path("user-id") userId: Long): Call<List<MessageModel>>
+    fun getMessagesByUser(@Path("user-id") userId: Long): Call<List<MessageUserResponse>>
 }
